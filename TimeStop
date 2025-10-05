@@ -1,0 +1,24 @@
+local UserInputService = game:GetService("UserInputService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Бинд на клавишу , (запятая)
+local TIMESTOP_KEY = Enum.KeyCode.Comma
+
+local function activateTimestop()
+    local args = {
+        [1] = 20,
+        [2] = "dioova"
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Main"):WaitForChild("Timestop"):FireServer(unpack(args))
+    print("Timestop активирован!")
+end
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+
+    if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == TIMESTOP_KEY then
+        activateTimestop()
+    end
+end)
+
+print("Timestop привязан к клавише , (запятая)")
